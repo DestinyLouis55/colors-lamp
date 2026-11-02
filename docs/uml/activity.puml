@@ -1,0 +1,33 @@
+@startuml
+
+start
+
+:Open COLORS application;
+
+:Enter username and password;
+
+if (Credentials valid?) then (Yes)
+    :Access COLORS application;
+    :Choose an action;
+
+    if (Which action?) then (Search)
+        :Search Colors;
+        :Enter search criteria;
+        :Submit search;
+        :Display matching colors;
+    else (Add)
+        :Add Color;
+        :Enter new color information;
+        :Submit new color;
+        :Save color to database;
+    endif
+
+    :Logout;
+
+else (No)
+    :Display login error;
+endif
+
+stop
+
+@enduml
