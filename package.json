@@ -1,0 +1,35 @@
+{
+  "name": "lamp-stack-dl",
+  "version": "1.0.0",
+  "description": "Description of the COLORS application:\r The COLORS application an application that allows users to log in and view colors in their collection by searching for the color specifically or searching for colors that contain a specific letter. Users can also add colors to their collection. This application was created during the COP4331 LAMP Stack Lab.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+ "scripts": {
+    "lint:js": "eslint public/js/",
+    "lint:html": "htmlhint public/*.html",
+    "lint:css": "stylelint public/css/*.css",
+    "lint": "npm run lint:js && npm run lint:html && npm run lint:css"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DestinyLouis55/colors-lamp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DestinyLouis55/colors-lamp/issues"
+  },
+  "homepage": "https://github.com/DestinyLouis55/colors-lamp#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "htmlhint": "^1.9.2",
+    "stylelint": "^18.0.0",
+    "stylelint-config-standard": "^41.0.0"
+  }
+}
