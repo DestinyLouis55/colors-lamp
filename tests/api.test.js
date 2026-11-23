@@ -1,7 +1,7 @@
 describe("COLORS API Integration Tests", () => {
     test("SearchColors PHP endpoint returns valid search results", async () => {
         const response = await fetch(
-            "http://localhost/LAMP-Stack-DL/api/SearchColors.php",
+    process.env.API_URL || "http://localhost/LAMP-Stack-DL/api/SearchColors.php",
             {
                 method: "POST",
                 headers: {
