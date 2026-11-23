@@ -1,4 +1,3 @@
-
 name: CI Lint
 
 on:
@@ -22,8 +21,46 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install PHP and MariaDB
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-cli php-mysql mariadb-server
+
+      - name: Start MariaDB and create test database
+        run: |
+          sudo service mariadb start
+          sudo mysql -e "
+            CREATE DATABASE COP4331;
+            CREATE USER 'YOUR_DB_USERNAME'@'localhost' IDENTIFIED BY 'YOUR_DB_PASSWORD';
+            GRANT ALL PRIVILEGES ON COP4331.* TO 'YOUR_DB_USERNAME'@'localhost';
+            USE COP4331;
+            CREATE TABLE Colors (
+              ID INT AUTO_INCREMENT PRIMARY KEY,
+              Name VARCHAR(255) NOT NULL,
+              UserID VARCHAR(255) NOT NULL
+            );
+            INSERT INTO Colors (Name, UserID)
+            VALUES
+              ('Blue', '42'),
+              ('Dark Blue', '42'),
+              ('Red', '42'),
+              ('Green', '42');
+          "
+
+      - name: Start PHP API server
+        run: |
+          php -S 127.0.0.1:8000 -t api > /tmp/php-server.log 2>&1 &
+          for i in {1..10}; do
+            if curl -s http://127.0.0.1:8000/SearchColors.php > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
       - name: Run lint checks
         run: npm run lint
 
       - name: Run tests
+        env:
+          API_URL: http://127.0.0.1:8000/SearchColors.php
         run: npm test
